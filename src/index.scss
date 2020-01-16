@@ -1,0 +1,17 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .button-div {
+    .select-button, .selected-button {
+      border-radius: 25px;
+      height: 32px;
+      width: 8em;
+      margin: 1em;
+    }
+    .selected-button {
+      background-color: #3d6391;
+      color: white;
+    }
+  }
+}
