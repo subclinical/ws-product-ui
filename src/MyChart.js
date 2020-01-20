@@ -9,23 +9,40 @@ class MyChart extends Component {
     this.state = {
       chartData: this.props.data
     }
-    this.configChartData.bind(this)
   }
 
   componentDidMount() {
     // this.configChartData(this.props.data)
-
+    // if(!this.state.chartData) this.fetchChartData("/data/daily")
     if(this.state.chartData) this.refreshChart(this.props)
   }
 
   render() {
-    const { loading, chartData } = this.props;
+    const { increment, setHourly, setDaily } = this.props;
     return (
       <div>
+        <div className="button-div">
+          <button className={increment === "hourly" ? "selected-button" : "select-button"} onClick={setHourly}>Hourly</button>
+          <button className={increment === "daily" ? "selected-button" : "select-button"} onClick={setDaily}>Daily</button>
+        </div>
         <canvas className="chart" id="events" width="500" height="500" />
       </div>
     )
   }
+
+
+  // fetchChartData = endpoint => {
+  //   this.setState({ loading: true })
+  //   fetch(`https://cors-anywhere.herokuapp.com/${process.env.REACT_APP_API_URL}${endpoint}`)
+  //     // fetch(`http://localhost:5555${endpoint}`)
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       this.setState({
+  //         chartData: res,
+  //         loading: false
+  //       })
+  //     });
+  // }
 
   configChartData(dataValues) {
     return {
@@ -107,7 +124,6 @@ class MyChart extends Component {
       chartCTX,
       this.configChartData(chartData)
     );
-    console.log(chart)
 
     this.setState({ chart });
   }

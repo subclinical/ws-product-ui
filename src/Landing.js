@@ -8,7 +8,7 @@ class Landing extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      display: "chart",
+      display: "map",
       loading: false,
       increment: "daily",
       eventsData: null,
@@ -17,11 +17,12 @@ class Landing extends Component {
   }
 
   componentDidMount() {
-    if(this.state.increment === "daily") {
+    const { display, increment } = this.state;
+    if(display === "chart" && increment === "daily") {
       this.fetchData("/data/daily")
-    } else if (this.state.increment === "hourly") {
+    } else if (display === "chart" && increment === "hourly") {
       this.fetchData("/data/hourly")
-    }
+    } 
   }
 
   render() {
@@ -33,10 +34,6 @@ class Landing extends Component {
           <button className={display === "table" ? "selected-button" : "select-button"} onClick={() => this.selectDisplay("table")}>Table</button>
           <button className={display === "map" ? "selected-button" : "select-button"} onClick={() => this.selectDisplay("map")}>Map</button>
         </div>
-        <div className="button-div">
-          <button className={increment === "hourly" ? "selected-button" : "select-button"} onClick={() => this.setState({ increment: "hourly" }, () => this.fetchData("/data/hourly"))}>Hourly</button>
-          <button className={increment === "daily" ? "selected-button" : "select-button"} onClick={() => this.setState({ increment: "daily" }, () => this.fetchData("/data/daily"))}>Daily</button>
-        </div>
         {loading ?
           <div className="loading-container">
             loading...
@@ -46,7 +43,7 @@ class Landing extends Component {
   }
 
   selectDisplay = display => {
-    this.setState({ display })
+    this.setState({ display }, this.fetchData("/data/daily"))
   }
 
   fetchData = endpoint => {
@@ -66,11 +63,17 @@ class Landing extends Component {
     const { display, loading, data, increment } = this.state;
     switch(display) {
       case "chart":
-        return <MyChart loading={loading} data={data} increment={increment} />
+        return <MyChart 
+                loading={loading} 
+                data={data} 
+                increment={increment} 
+                setHourly={() => this.setState({ increment: "hourly" }, () => this.fetchData("/data/hourly"))}
+                setDaily={() => this.setState({ increment: "daily" }, () => this.fetchData("/data/daily"))}
+              />
       case "table":
         return <Table loading={loading} data={data} />
       case "map":
-        return <Map loading={loading} />
+        return <Map loading={loading} data={data} />
     }
   }
 }

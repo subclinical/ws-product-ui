@@ -2,16 +2,43 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  .button-div {
-    .select-button, .selected-button {
-      border-radius: 25px;
-      height: 32px;
-      width: 8em;
-      margin: 1em;
-    }
-    .selected-button {
-      background-color: #3d6391;
-      color: white;
+}
+.button-div {
+  display: flex;
+  justify-content: center;
+  .select-button, .selected-button {
+    border-radius: 25px;
+    height: 32px;
+    width: 8em;
+    margin: 1em;
+  }
+  .selected-button {
+    background-color: #3d6391;
+    color: white;
+  }
+}
+
+.table-container {
+  td {
+    border: 1px solid #DEDEDE;
+  }
+  .highlighted {
+    background-color: #F9E79F;
+  }
+}
+
+.map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .poi-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F1AF43;
+    border-radius: 50%;
+    span {
+      text-align: center;
     }
   }
 }

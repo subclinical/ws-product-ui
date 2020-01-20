@@ -10,9 +10,9 @@ const Root = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Landing} />
-      <Route exact path="/chart" component={MyChart} />
+      {/* <Route exact path="/chart" component={MyChart} />
       <Route exact path="/table" component={Table} />
-      <Route exact path="/map" component={Map} />
+      <Route exact path="/map" component={Map} /> */}
     </Switch>
   </BrowserRouter>
 );
